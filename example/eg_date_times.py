@@ -299,4 +299,3 @@ def first_sunday_on_or_after(dt):
 #%% strftime() strptime()
 
 date(2019, 1, 7).__format__("%c")
-
