@@ -4,7 +4,7 @@ import os
 import itertools
 
 cwd = os.getcwd()
-path = "example\XX_CTA策略-20190404.xlsx"
+path = "example\黑逸数据分析.xlsx"
 
 data = pd.read_excel(path, parse_dates = True)
 data = pd.read_excel(path, dtype = {'日期': str}, skiprows = 1)
@@ -27,8 +27,7 @@ help(data)
 help(pd.read_excel)
 help(data.tail)
 
+range
 
-
-
-
-
+np.arange()
+range()
