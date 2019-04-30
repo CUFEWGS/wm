@@ -64,4 +64,35 @@ ham[1:9], ham[1:9:3], ham[9:3], ham[1::3], ham[1:9:]
 ham[lower:upper], ham[lower:upper:], ham[lower::step]
 ham[lower+offset : upper + offset]
 ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
+ham[lower + offset : upper + offset]
+
+dict['key'] = lst[index]
+
+x = 1
+y = 2
+long_variable = 3
+
+i = i + 1
+submitted += 1
+x = x*2 - 1
+hypot2 = x*x + y*y
+c = (a+b) * (a-b)
+
+def munge(input: AnyStr): ...
+def munge() -> AnyStr: ...
+
+def complex(real, imag=0.0):
+    return magic(r=real, i=imag)
+
+def munge(sep: AnyStr = None): ...
+def munge(input: AnyStr, sep: AnyStr = None, limit=1000): ...
+
+if foo == 'blah':
+    do_blah_thing()
+do_one()
+do_two()
+do_three()
+
+# When to Use Trailing Commas
+FILES = ('setup')
 
