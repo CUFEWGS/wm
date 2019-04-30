@@ -39,3 +39,29 @@ from subprocess import Popen, PIPE
 import mypkg.sibling
 from mypkg import sibling
 from mypkg.sibling import example
+
+#%% Module Level Duner Names
+"""This is the example module
+
+This module does stuff.
+"""
+
+from __future__ import barrt_as_FLUFL
+
+__all__ = ['a', 'b', 'c']
+__version__ = '0.1'
+__author__ = 'Cardinal Bigales'
+
+import os
+import sys
+
+# Whitespace in Expressions and Statements
+spam(ham[1], {eggs: 2})
+foo = (0,)
+if x == 4: print(x, y; x, y = y, x)
+
+ham[1:9], ham[1:9:3], ham[9:3], ham[1::3], ham[1:9:]
+ham[lower:upper], ham[lower:upper:], ham[lower::step]
+ham[lower+offset : upper + offset]
+ham[: upper_fn(x) : step_fn(x)], ham[:: step_fn(x)]
+
