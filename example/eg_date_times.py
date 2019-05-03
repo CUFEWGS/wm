@@ -299,3 +299,155 @@ def first_sunday_on_or_after(dt):
 #%% strftime() strptime()
 
 date(2019, 1, 7).__format__("%c")
+
+#%% python dates and datetimes
+from matplotlib.pylab import mpl, plt
+plt.style.use('seaborn')
+mpl.rcParams['font.family'] = 'serif'
+plt.show()
+
+import datetime as dt
+dt.datetime.now()
+to = dt.datetime.today()
+to
+type(to)
+
+dt.datetime.today().weekday()
+dt.datetime.today().isoweekday()
+d = dt.datetime(2020, 10, 31, 10, 5, 30, 500000)
+d
+str(d)
+print(d)
+d.year
+d.month
+d.day
+d.hour
+
+o = d.toordinal()
+dt.datetime.fromordinal(o)
+t = dt.datetime.time(d)
+t
+type(t)
+dd = dt.datetime.date(d)
+dd
+d.replace(second=0, microsecond=0)
+
+td = d - dt.datetime.now()
+type(td)
+td.days
+td.seconds
+td.microseconds
+td.total_seconds()
+d.isoformat()
+d.strftime("%A, %d. %B %Y %I:%M%p")
+dt.datetime.strptime("2019-05-02", "%Y-%m-%d")
+dt.datetime.strptime('30-4-16', '%d-%m-%y')
+ds = str(d)
+ds
+dt.datetime.strptime(ds, "%Y-%m-%d %H:%M:%S.%f")
+
+dt.datetime.now()
+dt.datetime.utcnow()
+
+class UTC(dt.tzinfo):
+    def utcoffset(self, d):
+        return dt.timedelta(hours=0)
+    def dst(self, d):
+        return dt.timedelta(hours=0)
+    def tzname(self, d):
+        return 'UTC'
+
+u = dt.datetime.utcnow()
+u
+u = u.replace(tzinfo=UTC())
+u
+
+class CEST(dt.tzinfo):
+    def utcoffset(self, d):
+        return dt.timedelta(hours=2)
+    def dst(self, d):
+        return dt.timedelta(hours=1)
+    def tzname(self, d):
+        return 'CEST'
+
+c = u.astimezone(CEST())
+c
+
+c - c.dst()
+
+import pytz
+pytz.country_names['US']
+pytz.country_names['BE']
+
+pytz.common_timezones[-10:]
+
+u = dt.datetime.utcnow()
+u
+u = u.replace(tzinfo=pytz.utc)
+u
+u.astimezone(pytz.timezone('CET'))
+
+u.astimezone(pytz.timezone('GMT'))
+u.astimezone(pytz.timezone('US/Central'))
+
+#%% date & time in numpy
+import numpy as np
+
+nd = np.datetime64('2020-10-31')
+nd
+
+np.datetime_as_string(nd)
+np.datetime_data(nd)
+d
+np.datetime64(d)
+nd = np.datetime64(d)
+nd
+nd.astype(dt.time)
+
+nd = np.datetime64('2020-10', 'D')
+nd
+np.datetime64('2020-10') == np.datetime64('2020-10-01')
+np.array(['2020-06-10', '2020-07-10', '2020-08-10'], dtype='datetime64[s]')
+np.arange('2020-01-01', '2020-01-04', dtype = 'datetime64')
+np.arange('2020-01-01', '2020-10-01', dtype='datetime64[M]')
+np.arange('2020-01-01', '2020-10-01', dtype='datetime64[W]')
+dtl = np.arange('2020-01-01T00:00:00', '2020-01-02T00:00:00', dtype='datetime64[h]')
+dtl
+np.arange('2020-01-01T00:00:00', '2020-01-02T00:00:00', dtype = 'datetime64[s]')[:10]
+
+import matplotlib.pyplot as plt
+plt.show()
+
+np.random.seed(3000)
+rnd = np.random.standard_normal(len(dtl)).cumsum() ** 2
+
+fig = plt.figure(figsize=(10, 6))
+plt.plot(dtl.astype(dt.datetime), rnd)
+fig.autofmt_xdate()
+
+#%% pandas date && time
+import pandas as pd
+ts = pd.Timestamp('2020-06-30')
+ts
+d = ts.to_pydatetime()
+d
+pd.Timestamp(d)
+pd.Timestamp(nd)
+
+rnd = np.random.standard_normal(len(dti)).cumsum() ** 2
+
+df = pd.DataFrame(rnd, columns=['data'], index=dti)
+
+df.plot(figsize=(10, 6))
+
+dti = pd.date_range('2020/01/01', freq = 'M', periods=12)
+dti
+
+pdi = dti.to_pydatetime()
+
+pd.DatetimeIndex(pdi)
+pd.DatetimeIndex(dti)
+
+dti = pd.date_range('2020-01-01', freq='M', periods=12, tz='US/Eastern')
+dti
+dti.tz_convert('GMT')

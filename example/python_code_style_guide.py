@@ -94,5 +94,41 @@ do_two()
 do_three()
 
 # When to Use Trailing Commas
-FILES = ('setup')
+FILES = ('setup.cfg',)
 
+FILES = [
+    'setup.cfg',
+    'tox.ini',
+    ]
+
+initialize(FILES,
+           error = True,
+           )
+
+try:
+    value = collection[key]
+except KeyError:
+    return key_not_found(key)
+else:
+    return handle_value(value)
+
+
+def foo(x):
+    if x >= 0:
+        return math.sqrt(x)
+    else:
+        return None
+
+def bar(x):
+    if x < 0:
+        return None
+    return math.sqrt(x)
+
+if foo.startswith('bar'):
+if isinstance(obj, basestring):
+
+#%% PEP 20
+def load():
+    from menagerie.models import cat as cat_modules
+    from menagerie.models import dog as dog_modules
+    from menagerie.models import mouse as mouse_modules
