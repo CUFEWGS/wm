@@ -9,7 +9,7 @@ sqlalchemy.__version__
 
 from sqlalchemy import create_engine
 # engine = create_engine('sqlite:///:memory:', echo = True)
-engine = create_engine('sqlite:///E:/Python/sqlite_test/test1', echo = True)
+engine = create_engine('sqlite:///D:/E/Python/sqlite_test/test1', echo=True)
 
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Sequence
 
@@ -125,7 +125,7 @@ print(users.c.name.like('j%') & (users.c.id == addresses.c.user_id) &
       & ~(users.c.id > 5)
       )
 
-from sqlalchemy.sql import text
+from sqlalchemy.sql import text, bindparam
 s = text(
     "SELECT users.fullname || ', ' || addresses.email_address AS title "
         "FROM users, addresses "
@@ -136,3 +136,11 @@ s = text(
 
 conn.execute(s, x='m', y='z', e1='%@aol.com', e2='%@msn.com').fetchall()
 [(u'Wendy Williams, wendy@aol.com',)]
+
+stmt = text("SELECT * FROM users WHERE users.name BETWEEN :x AND :y")
+stmt = stmt.bindparams(x='m', y='z')
+
+stmt = stmt.bindparams(bindparam('x', type_=String), bindparam("y", type_=String))
+result = conn.execute(stmt, {"x": "m", "y": "z"})
+
+

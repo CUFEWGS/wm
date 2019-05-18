@@ -83,3 +83,32 @@ def fm(p):
 x = np.linspace(0, 10, 20)
 y = np.linspace(0, 10, 20)
 X, Y = np.meshgrid(x, y)
+
+Z = fm((X, Y))
+x = X.flatten()
+y = Y.flatten()
+
+from mpl_toolkits.mplot3d import Axes3D
+
+fig = plt.figure(figsize=(10, 6))
+ax = fig.gca(projection='3d')
+surf = ax.plot_surface(X, Y, Z, rstride=2, cstride=2,
+                       cmap='coolwarm', linewidth=0.5,
+                       antialiased=True)
+
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+ax.set_zlabel('f(x,y)')
+fig.colorbar(surf, shrink=0.5, aspect=5)
+plt.show()
+
+matrix = np.zeros((len(x), 6 + 1))
+matrix[:, 6] = np.sqrt(y)
+matrix[:, 5] = np.sin(x)
+matrix[:, 4] = y ** 2
+matrix[:, 3] = x ** 2
+matrix[:, 2] = y
+matrix[:, 1] = x
+matrix[:, 0] = 1
+
+reg = np.linalg.lstsq(matrix, fm((x, y)), rcond=None)[0]
