@@ -10,7 +10,12 @@ class C:
     def __init__(self, bar):
         self.bar = bar # type: Optional[str]
 
-    def f2(self):
+        def f2():
+            return 'foo'
+
+        def f1():
+            x = f2() # type: str
+            return x.upper()
 
 from typing import List, Optional
 
