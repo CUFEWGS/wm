@@ -67,6 +67,7 @@ df
 df3[df3['E'].isin(['two', 'four'])]
 
 s1 = pd.Series([1, 2, 3, 4, 5, 6], index=pd.date_range('20190519', periods=6))
+s1 = pd.Series([1, 2, 3], index=['1', '2', '3'])
 s1
 df['F'] = s1
 df
