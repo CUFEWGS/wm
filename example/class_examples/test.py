@@ -22,3 +22,16 @@ def h2():
     def nested():
         nonlocal X # Python 3.X statement
         X = 44 # Change local in enclosing scope
+
+class Super:
+    def hello(self):
+        self.data1 = 'spam'
+
+ class Sub(Super):
+    def hola(self):
+        self.data2 = 'eggs'
+
+X = Sub()
+X.__dict__
+X.__class__
+Sub.
