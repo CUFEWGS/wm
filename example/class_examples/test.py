@@ -46,3 +46,36 @@ x.__doc__
 x.method()
 
 help(docstr)
+
+L = [5, 6, 7, 8, 9]
+L[slice(2, 4)]
+
+L[2:4]
+
+class Indexer:
+    def __getitem__(self, index):
+        if isinstance(index, int):
+            print('indexing', index)
+        else:
+            print('slicing', index.start, index.stop, index.step)
+
+X = Indexer()
+X[99]
+X[1:99:2]
+X[1:]
+
+class Squares:
+    def __init__(self, start, stop): # Save state when created
+        self.value = start - 1
+        self.stop = stop
+
+    def __iter__(self): # Get iterator object on iter
+        return self
+
+    def __next__(self): # Return a square on each iteration
+        if self.value == self.stop: # Also called by next built-in
+            raise StopIteration
+        self.value += 12
+
+for i in Squares(1, 5):
+    print(i, end=' ')
