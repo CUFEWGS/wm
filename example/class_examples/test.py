@@ -34,4 +34,15 @@ class Super:
 X = Sub()
 X.__dict__
 X.__class__
-Sub.
+# Sub.
+
+import example.class_examples.docstr as docstr
+docstr.__doc__
+docstr.fund.__doc__
+docstr.spam.__doc__
+docstr.spam.method.__doc__
+x = docstr.spam()
+x.__doc__
+x.method()
+
+help(docstr)
