@@ -79,3 +79,49 @@ class Squares:
 
 for i in Squares(1, 5):
     print(i, end=' ')
+
+class C1:
+    def meth1(self): self.__X = 88 # I assume X is mine
+    def meth2(self): print(self.__X)
+
+class C2:
+    def metha(self): self.__X = 99 # Me too
+    def methb(self): print(self.__X)
+
+
+class C3(C1, C2): ...
+I = C3()
+I.meth2()
+I.metha()
+I.methb()
+print(I.__dict__)
+
+class Number:
+    def __init__(self, base):
+        self.data = base
+    def double(self):
+    return self.data * 2
+    def triple(self):
+        return self.data * 3
+
+x = Number(2)
+x.double()
+
+bound = x.double
+bound
+bound.__self__
+bound.__func__
+bound.__self__.data
+bound()
+
+class Spam:
+    def __init__(self):
+        self.data1 = "food"
+X = Spam()
+print(X)
+
+
+from example.class_examples.setwrapper import Set
+x = Set([1, 3, 5, 7])
+print(x.union(Set([1, 4, 7])))
+print(x | Set([1, 4, 6]))
