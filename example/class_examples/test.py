@@ -195,3 +195,36 @@ def generate():
     return Spam()
 
 generate().method()
+
+class C:
+    # __slots__ = ['B']
+    pass
+
+class D(C):
+    __slots__ = ['a']
+
+C.__dict__.keys()
+D.__dict__.keys()
+
+X = D()
+X.a = 1
+X.b = 1
+
+class operators:
+    def __getattr__(self, name): # On undefined reference
+        if name == 'age':
+            return 40
+        else:
+            raise AttributeError(name)
+
+    def __setattr__(self, name, value): # On all assignments
+        print('set: %s %s' % (name, value))
+        if name == 'age':
+            self.__dict__['_age'] = value # Or object.__setattr__()
+        else:
+            self.__dict__[name] = value
+
+x = operators()
+x.age
+x.age = 41
+x._age
