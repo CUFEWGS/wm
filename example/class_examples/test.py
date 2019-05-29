@@ -125,3 +125,73 @@ from example.class_examples.setwrapper import Set
 x = Set([1, 3, 5, 7])
 print(x.union(Set([1, 4, 7])))
 print(x | Set([1, 4, 6]))
+
+from example.class_examples.spam import Spam
+a  = Spam()
+b = Spam()
+c = Spam()
+Spam.printNumInstances()
+a.printNumInstances()
+
+
+def printNumInstances():
+    print("Number of instances created: %s" % Spam.numInstances)
+
+class Spam:
+    numInstances = 0
+
+    def __init__(self):
+        Spam.numInstances = Spam.numInstances + 1
+
+a = Spam()
+b = Spam()
+c = Spam()
+printNumInstances()
+
+from example.class_examples.bothmethod import Methods
+obj = Methods()
+obj.imeth(1)
+Methods.imeth(obj, 2)
+# Methods.imeth(2)
+Methods.smeth(3)
+obj.semth(4)
+Methods.smeth1(3)
+obj.smeth1(4)
+
+Methods.cmeth(5)
+obj.cmeth(6)
+
+class Spam:
+    numInstances = 0 # Trace class passed in
+    def __init__(self):
+        Spam.numInstances += 1
+    def printNumInstances(cls):
+        print("Number of instances: %s %s" % (cls.numInstances, cls))
+        a = 1
+        return a
+    printNumInstances = classmethod(printNumInstances)
+    def test(self):
+        self.x = printNumInstances()
+
+
+class Sub(Spam):
+    def printNumInstances(cls): # Override a class method
+        print("Extra stuff...", cls) # But call back to original
+        Spam.printNumInstances()
+    printNumInstances = classmethod(printNumInstances)
+
+class Other(Spam): pass # Inherit class method verbatim
+
+x = Sub()
+y = Other()
+y.printNumInstances()
+
+
+def generate():
+    class Spam: # Spam is a name in generate's local scope
+        count = 1
+        def method(self):
+            print(Spam.count) # Visible in generate's scope, per LEGB rule (E)
+    return Spam()
+
+generate().method()
