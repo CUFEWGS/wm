@@ -124,3 +124,51 @@ I = Client('eggs')
 I.managed
 I.managed = 'SPAM'
 I.managed
+
+class Person:
+    def __init__(self, name):
+        self.name = name
+    def __getattr__(self, attr):
+        print('get:' + attr)
+        if attr == 'name':
+            return self._name
+        else:
+            raise AttributeError(attr)
+
+    def __setattr__(self, attr, value):
+        print('set:' + attr)
+        if attr == 'name':
+            attr = 'name'
+        self.__dict__[attr] = value
+
+    def __delattr__(self, attr):
+        print('del:' + attr)
+        if attr == 'name':
+            attr = '_name'
+        del self.__dict__[attr]
+
+bob = Person('Bob Smith')
+print(bob.name)
+bob.name = 'Robert Smith'
+
+class AttrSquare: # Add (object) for 2.X
+    def __init__(self, start):
+        self.value = start # Triggers __setattr__!
+
+    def __getattribute__(self, attr): # On all attr fetches
+        if attr == 'X':
+            return self.value ** 2 # Triggers __getattribute__ again!
+        else:
+            return object.__getattribute__(self, attr)
+
+    def __setattr__(self, attr, value): # On all attr assignments
+        if attr == 'X':
+            attr = 'value'
+        object.__setattr__(self, attr, value)
+
+A = AttrSquare(3) # 2 instances of class with overloading
+B = AttrSquare(32) # Each has different state information
+print(A.X) # 3 ** 2
+A.X = 4
+print(A.X) # 4 ** 2
+print(B.X) # 32 ** 2 (1024)
