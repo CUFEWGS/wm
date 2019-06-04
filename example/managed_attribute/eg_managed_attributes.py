@@ -124,3 +124,68 @@ I = Client('eggs')
 I.managed
 I.managed = 'SPAM'
 I.managed
+
+class DescSquare(object):
+    def __get__(self, instance, owner):
+        return instance._square ** 2
+    def __set__(self, instance, value):
+        instance._square = value
+
+class DescCube(object):
+    def __get__(self, instance, owner):
+        return instance._cube ** 3
+
+class Powers(object):
+    square = DescSquare()
+    cube = DescCube()
+    def __init__(self, x, y):
+        self._square = x
+        self._cube = y
+
+X = Powers(3, 4)
+print(X.square)
+print(X.cube)
+X.square = 5
+print(X.square)
+
+
+class GetAttr:
+    eggs = 88
+    def __init__(self):
+        self.spam = 77
+    def __len__(self):
+        print('__len__: 42')
+        return 42
+    def __getattr__(self, attr):
+        print('getattr: ' + attr)
+        if attr == '__str__':
+            return lambda *args: '[Getattr str]'
+        else:
+            return lambda *args: None
+
+class GetAttribute(object):
+    eggs = 88
+    def __init__(self):
+        self.spam = 77
+    def __len__(self):
+        print('__len__: 42')
+        return 42
+    def __getattribute__(self, attr):
+        if attr == '__str__':
+            return lambda *args: '[GetAttribute str]'
+        else:
+            return lambda *args: None
+
+# for Class in GetAttr, GetAttribute:
+#     print('\n' + Class.__name__.ljust(50, "="))
+#
+#     X = Class()
+#     X.eggs
+#     X.spam
+#     X.other
+#     len(X)
+
+
+
+
+
