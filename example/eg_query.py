@@ -48,4 +48,4 @@ class City(Base):
     District = Column(String)
     Population = Column(Integer)
 
-included_parts =
+# included_parts =
