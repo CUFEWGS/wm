@@ -20,3 +20,32 @@ def test_name():
 test_name()
 a = test_name
 a()
+
+
+list(filter((lambda x: x > 0), range(-5, 5)))
+
+M = [[1, 2, 3],
+     [4, 5, 6],
+     [7, 8, 9]]
+
+N = [[2, 2, 2],
+     [3, 3, 3],
+     [4, 4, 4]]
+
+
+[[M[row][col] * N[row][col] for col in range(3)] for row in range(3)]
+
+
+def gen(N):
+    for i in range(N):
+        # return i ** 2
+        yield i ** 2
+
+for i in gen(5):
+    print(i, end=':')
+
+test = (x + '\n' for x in 'aaa, bbb, ccc'.split(','))
+test
+a, b, c= (x + '\n' for x in 'aaa, bbb, ccc'.split(','))
+a, b, c = test
+a
