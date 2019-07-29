@@ -49,3 +49,27 @@ test
 a, b, c= (x + '\n' for x in 'aaa, bbb, ccc'.split(','))
 a, b, c = test
 a
+
+
+G = (c * 4 for c in 'SPAM')
+G
+next(G)
+I = iter(G)
+next(I)
+
+line = 'aa bbb c'
+
+def gensub(line):
+    for x in line.split():
+        if len(x) > 1:
+            yield x.upper()
+
+''.join(gensub(line))
+
+def retsub(line):
+    for x in line.split():
+        if len(x) > 1:
+            return x.upper()
+
+''.join(retsub(line))
+
