@@ -73,3 +73,27 @@ def retsub(line):
 
 ''.join(retsub(line))
 
+
+def fund():
+    pass
+
+def default():
+    pass
+
+branch = {
+    'spam': lambda x: x + 1,
+    'ham' : fund,
+    'eggs': lambda x: x + 2}
+
+choice = 'spam'
+branch.get(choice, default())
+s = (
+    'aaa'
+    'bbbb'
+)
+s = """
+aaaa
+bbb
+"""
+
+[a for a in dir(dict) if not a.startswith('__')]
